@@ -1,4 +1,4 @@
-Sponsored by Clean Oceans International: A web application to enable people to post, view, and filter data about clean up marine sites. Educates the public about the necessary coastal clean up protocol.
+API for Marine Plastics Monitor.
 
 Developers:
 
@@ -15,8 +15,6 @@ Lee White - lnwhite@ucsc.edu
 Vincent Wu - vwu5@ucsc.edu
 
 
-git clone
-
-npm install
-
-npm run start-dev
+1. git clone [url]
+2. npm install
+3. npm start
