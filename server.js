@@ -7,17 +7,16 @@ var Comment = require('./model/comments');
 var path = require('path');
 
 //and create our instances
-var app = express();
-var router = express.Router();
+const app = express();
+let router = express.Router();
 
 //set our port to either a predetermined port number if you have set it up, or 3001
-var port = process.env.PORT || 3001;
+const port = process.env.PORT || 3001;
 
-var mongoDB = 'mongodb://db:db@ds143221.mlab.com:43221/heroku_h3hh7swq';
+const mongoDB = 'mongodb://db:db@ds143221.mlab.com:43221/heroku_h3hh7swq';
 mongoose.connect(mongoDB, { useMongoClient: true })
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
@@ -52,8 +51,7 @@ router.route('/comments')
   .get(function(req, res) {
     //looks at our Comment Schema
     Comment.find(function(err, comments) {
-      if (err)
-        res.send(err);
+      if (err) res.send(err);
       //responds with a json object of our database comments.
       res.json(comments)
     });
@@ -61,31 +59,14 @@ router.route('/comments')
   //post new comment to the database
   .post(function(req, res) {
     var comment = new Comment();
-    (req.body.user) ? comment.user = req.body.user : null;
-    (req.body.email) ? comment.email = req.body.email : null;
-    (req.body.input_date) ? comment.input_date = req.body.input_date : null;
-    (req.body.org) ? comment.org = req.body.org : null;
-    (req.body.date) ? comment.date = req.body.date : null;
-    (req.body.beach) ? comment.beach = req.body.beach : null;
-    (req.body.reason) ? comment.reason = req.body.reason : null;
-    (req.body.st) ? comment.st = req.body.st : null;
-    (req.body.lat) ? comment.lat = req.body.lat : null;
-    (req.body.lon) ? comment.lon = req.body.lon : null;
-    (req.body.slope) ? comment.slope = req.body.slope : null;
-    (req.body.nroName) ? comment.nroName = req.body.nroName : null;
-    (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
-    (req.body.aspect) ? comment.aspect = req.body.aspect : null;
-    (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
-    (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
-    (req.body.windDir) ? comment.windDir = req.body.windDir : null;
-    (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
-    (req.body.weight) ? comment.weight = req.body.weight : null;
-    (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
-    (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
-    (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
-    (req.body.ASData) ? comment.ASData = req.body.ASData : null;
-    (req.body.ASTotal) ? comment.ASTotal = req.body.ASTotal : null;
+    for (const key in comment) {
+      if (comment.hasOwnProperty(key)) {
+        const val = req.body[key];
+        if (val) comment[key] = val;
+      }
+    }
 
+    // console.log(comment);
     comment.save(function(err) {
       if (err)
         res.send(err);
@@ -93,47 +74,36 @@ router.route('/comments')
     });
   });
 
+  
+
 //Adding a route to a specific comment based on the database ID
-router.route('/comments/:comment_id')
+router.route('/comments/:id')
+.get(function(req, res) {
+  Comment.findById(req.params.id, function(err, comment) {
+    res.json({ comment });
+  })
+})
 //The put method gives us the chance to update our comment based on the ID passed to the route
 .put(function(req, res) {
-  Comment.findById(req.params.comment_id, function(err, comment) {
-    if (err)
-      res.send(err);
+  Comment.findById(req.params.id, function(err, comment) {
+    if (err) res.send(err);
       //setting the new beach and reason to whatever was changed. If nothing was changed
       // we will not alter the field.
-      (req.body.user) ? comment.user = req.body.user : null;
-      (req.body.email) ? comment.email = req.body.email : null;
-      (req.body.input_date) ? comment.input_date = req.body.input_date : null;
-      (req.body.org) ? comment.org = req.body.org : null;
-      (req.body.date) ? comment.date = req.body.date : null;
-      (req.body.beach) ? comment.beach = req.body.beach : null;
-      (req.body.reason) ? comment.reason = req.body.reason : null;
-      (req.body.st) ? comment.st = req.body.st : null;
-      (req.body.lat) ? comment.lat = req.body.lat : null;
-      (req.body.lon) ? comment.lon = req.body.lon : null;
-      (req.body.slope) ? comment.slope = req.body.slope : null;
-      (req.body.nroName) ? comment.nroName = req.body.nroName : null;
-      (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
-      (req.body.aspect) ? comment.aspect = req.body.aspect : null;
-      (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
-      (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
-      (req.body.windDir) ? comment.windDir = req.body.windDir : null;
-      (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
-      (req.body.weight) ? comment.weight = req.body.weight : null;
-      (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
-      (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
-      (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
-      (req.body.ASData) ? comment.ASData = req.body.ASData : null;
-      (req.body.ASTotal) ? comment.ASTotal = req.body.ASTotal : null;
 
-      //save comment
-      comment.save(function(err) {
-        if (err)
-          res.send(err);
-        res.json({ message: 'Comment has been updated' });
-      });
+    for (const key in comment) {
+      if (comment.hasOwnProperty(key)) {
+        const val = req.body[key];
+        if (val) comment[key] = val;
+      }
+    }
+    
+    //save comment
+    comment.save(function(err) {
+      if (err)
+        res.send(err);
+      res.json({ message: 'Comment has been updated' });
     });
+  });
 })
   //delete method for removing a comment from our database
   .delete(function(req, res) {
