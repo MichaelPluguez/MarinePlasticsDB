@@ -59,12 +59,37 @@ router.route('/comments')
   //post new comment to the database
   .post(function(req, res) {
     var comment = new Comment();
-    for (const key in comment) {
-      if (comment.hasOwnProperty(key)) {
-        const val = req.body[key];
-        if (val) comment[key] = val;
-      }
-    }
+    // for (const key in comment) {
+    //   if (comment.hasOwnProperty(key)) {
+    //     const val = req.body[key];
+    //     if (val) comment[key] = val;
+    //   }
+    // }
+
+    (req.body.user) ? comment.user = req.body.user : null;
+    (req.body.email) ? comment.email = req.body.email : null;
+    (req.body.input_date) ? comment.input_date = req.body.input_date : null;
+    (req.body.org) ? comment.org = req.body.org : null;
+    (req.body.date) ? comment.date = req.body.date : null;
+    (req.body.beach) ? comment.beach = req.body.beach : null;
+    (req.body.reason) ? comment.reason = req.body.reason : null;
+    (req.body.st) ? comment.st = req.body.st : null;
+    (req.body.lat) ? comment.lat = req.body.lat : null;
+    (req.body.lon) ? comment.lon = req.body.lon : null;
+    (req.body.slope) ? comment.slope = req.body.slope : null;
+    (req.body.nroName) ? comment.nroName = req.body.nroName : null;
+    (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
+    (req.body.aspect) ? comment.aspect = req.body.aspect : null;
+    (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
+    (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
+    (req.body.windDir) ? comment.windDir = req.body.windDir : null;
+    (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
+    (req.body.weight) ? comment.weight = req.body.weight : null;
+    (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
+    (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
+    (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+    (req.body.ASData) ? comment.ASData = req.body.ASData : null;
+    (req.body.ASTotal) ? comment.ASTotal = req.body.ASTotal : null;
 
     // console.log(comment);
     comment.save(function(err) {
@@ -90,12 +115,36 @@ router.route('/comments/:id')
       //setting the new beach and reason to whatever was changed. If nothing was changed
       // we will not alter the field.
 
-    for (const key in comment) {
-      if (comment.hasOwnProperty(key)) {
-        const val = req.body[key];
-        if (val) comment[key] = val;
-      }
-    }
+    // for (const key in comment) {
+    //   if (comment.hasOwnProperty(key)) {
+    //     const val = req.body[key];
+    //     if (val) comment[key] = val;
+    //   }
+    // }
+    (req.body.user) ? comment.user = req.body.user : null;
+    (req.body.email) ? comment.email = req.body.email : null;
+    (req.body.input_date) ? comment.input_date = req.body.input_date : null;
+    (req.body.org) ? comment.org = req.body.org : null;
+    (req.body.date) ? comment.date = req.body.date : null;
+    (req.body.beach) ? comment.beach = req.body.beach : null;
+    (req.body.reason) ? comment.reason = req.body.reason : null;
+    (req.body.st) ? comment.st = req.body.st : null;
+    (req.body.lat) ? comment.lat = req.body.lat : null;
+    (req.body.lon) ? comment.lon = req.body.lon : null;
+    (req.body.slope) ? comment.slope = req.body.slope : null;
+    (req.body.nroName) ? comment.nroName = req.body.nroName : null;
+    (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
+    (req.body.aspect) ? comment.aspect = req.body.aspect : null;
+    (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
+    (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
+    (req.body.windDir) ? comment.windDir = req.body.windDir : null;
+    (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
+    (req.body.weight) ? comment.weight = req.body.weight : null;
+    (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
+    (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
+    (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+    (req.body.ASData) ? comment.ASData = req.body.ASData : null;
+    (req.body.ASTotal) ? comment.ASTotal = req.body.ASTotal : null;
     
     //save comment
     comment.save(function(err) {
