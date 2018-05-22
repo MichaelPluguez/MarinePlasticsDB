@@ -1,4 +1,4 @@
-The API for Marine Plastics Monitor.
+API for Marine Plastics Monitor.
 
 Developers:
 
