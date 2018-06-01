@@ -12,7 +12,7 @@ var dataSchema = new Schema ({
 
 var tideSchema = new Schema ({
 	type: String,
-	time: Number,
+	time: Date,
 	height: Number,
 });
 

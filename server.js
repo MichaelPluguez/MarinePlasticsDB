@@ -99,8 +99,6 @@ router.route('/comments')
     });
   });
 
-  
-
 //Adding a route to a specific comment based on the database ID
 router.route('/comments/:id')
 .get(function(req, res) {
